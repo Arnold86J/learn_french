@@ -320,11 +320,11 @@ export const expressions = [
   },
   {
     id: 32,
-    expression: "A ce qu'on dit",
+    expression: "À ce qu'on dit",
     verb: "Dire",
     translation: "According to what people say / rumor has it",
     definition: "Selon ce que disent les gens, d'après l'opinion générale.",
-    example: "A ce qu'on dit, ce restaurant est super ! Tu veux y aller ?",
+    example: "À ce qu'on dit, ce restaurant est super ! Tu veux y aller ?",
     register: "Standard",
     difficulty: "Débutant"
   },
@@ -922,7 +922,7 @@ export const expressions = [
   // ==================== VENIR ====================
   {
     id: 91,
-    expression: "A venir",
+    expression: "À venir",
     verb: "Venir",
     translation: "To come / upcoming",
     definition: "Qui se produira dans le futur, qui est à prévoir (synonyme : futur).",

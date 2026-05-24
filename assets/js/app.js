@@ -102,8 +102,10 @@ export function switchTab(tabId) {
   document.querySelectorAll('.nav-link').forEach(link => {
     if (link.getAttribute('data-tab') === tabId) {
       link.classList.add('active');
+      link.setAttribute('aria-current', 'page');
     } else {
       link.classList.remove('active');
+      link.removeAttribute('aria-current');
     }
   });
   
@@ -111,8 +113,10 @@ export function switchTab(tabId) {
   document.querySelectorAll('.mobile-nav-link').forEach(link => {
     if (link.getAttribute('data-tab') === tabId) {
       link.classList.add('active');
+      link.setAttribute('aria-current', 'page');
     } else {
       link.classList.remove('active');
+      link.removeAttribute('aria-current');
     }
   });
   
@@ -166,11 +170,12 @@ function setupTheme() {
 
 // Dashboard statistics synchronizer
 function updateDashboardUI() {
+  const totalExpressions = state.expressions.length;
   const totalLearned = state.learned.length;
   const totalFavorites = state.favorites.length;
   const totalQuizPlayed = state.quizHistory.length;
   
-  document.getElementById('stat-total-learned').textContent = `${totalLearned} / 100`;
+  document.getElementById('stat-total-learned').textContent = `${totalLearned} / ${totalExpressions}`;
   document.getElementById('stat-total-favorites').textContent = totalFavorites;
   document.getElementById('stat-quiz-played').textContent = totalQuizPlayed;
   
@@ -188,7 +193,7 @@ function updateDashboardUI() {
   // Update Progress Ring SVG
   const circle = document.getElementById('dashboard-ring-circle');
   const pctText = document.getElementById('dashboard-progress-percentage');
-  const percent = totalLearned; // Since total is 100
+  const percent = totalExpressions > 0 ? Math.round((totalLearned / totalExpressions) * 100) : 0;
   
   pctText.textContent = `${percent}%`;
   
