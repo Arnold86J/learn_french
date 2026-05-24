@@ -1,0 +1,75 @@
+/* variables.css - Modern Design System Tokens */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Fonts */
+  --font-title: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  /* Color Palette (Brand & Status) */
+  --color-primary: 250, 85%, 62%;    /* Indigo/Violet */
+  --color-primary-rgb: 99, 102, 241;
+  --color-secondary: 170, 80%, 45%;  /* Cyan/Teal */
+  --color-success: 142, 72%, 45%;    /* Emerald */
+  --color-warning: 24, 95%, 53%;     /* Orange */
+  --color-error: 350, 80%, 55%;      /* Coral/Red */
+  
+  /* Difficulty Colors */
+  --color-easy: 142, 72%, 45%;
+  --color-medium: 38, 92%, 50%;
+  --color-hard: 350, 80%, 55%;
+
+  /* Dark Theme Tokens (Default) */
+  --bg-app: 222, 25%, 8%;
+  --bg-panel: 223, 22%, 12%;
+  --bg-panel-hover: 223, 20%, 16%;
+  --bg-input: 223, 22%, 10%;
+  --border-color: 223, 15%, 20%;
+  --border-focus: 250, 85%, 65%;
+  --text-main: 210, 38%, 95%;
+  --text-muted: 215, 15%, 70%;
+  
+  /* Glassmorphism */
+  --glass-bg: rgba(18, 22, 33, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: rgba(0, 0, 0, 0.3);
+  
+  /* Shared Tokens */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.25);
+  
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light Theme Variables overrides */
+[data-theme="light"] {
+  --bg-app: 210, 40%, 98%;
+  --bg-panel: 0, 0%, 100%;
+  --bg-panel-hover: 210, 30%, 96%;
+  --bg-input: 210, 30%, 95%;
+  --border-color: 210, 20%, 90%;
+  --border-focus: 250, 85%, 60%;
+  --text-main: 220, 30%, 15%;
+  --text-muted: 215, 16%, 45%;
+
+  /* Glassmorphism Light */
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(99, 102, 241, 0.08);
+  --glass-shadow: rgba(99, 102, 241, 0.05);
+  
+  --shadow-sm: 0 2px 8px rgba(99, 102, 241, 0.05);
+  --shadow-md: 0 8px 24px rgba(99, 102, 241, 0.08);
+  --shadow-lg: 0 16px 40px rgba(99, 102, 241, 0.12);
+  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.15);
+}

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expressions Indispensables - Parlez-vous French</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Une application web moderne et interactive pour apprendre et réviser les 100 expressions indispensables de la langue française. Quiz, flashcards et prononciation.">
+  <meta name="theme-color" content="#6366f1">
+  
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="assets/images/icon-192.png">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Desktop Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="#" class="brand">
+          <div class="brand-logo">🇫🇷</div>
+          <span class="brand-name">Français Express</span>
+        </a>
+        
+        <nav class="nav-menu">
+          <div class="nav-item">
+            <a class="nav-link active" data-tab="dashboard" id="nav-db">
+              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+              <span>Accueil</span>
+            </a>
+          </div>
+          <div class="nav-item">
+            <a class="nav-link" data-tab="catalog" id="nav-catalog">
+              <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+              <span>Catalogue</span>
+            </a>
+          </div>
+          <div class="nav-item">
+            <a class="nav-link" data-tab="flashcards" id="nav-flashcards">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5" rx="1"></rect></svg>
+              <span>Flashcards</span>
+            </a>
+          </div>
+          <div class="nav-item">
+            <a class="nav-link" data-tab="quiz" id="nav-quiz">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+              <span>Quiz</span>
+            </a>
+          </div>
+          <div class="nav-item">
+            <a class="nav-link" data-tab="stats" id="nav-stats">
+              <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              <span>Statistiques</span>
+            </a>
+          </div>
+        </nav>
+      </div>
+      
+      <div class="sidebar-footer">
+        <button class="theme-toggle-btn" id="theme-toggle-desktop" title="Changer le thème">
+          <span>Mode Sombre</span>
+          <svg viewBox="0 0 24 24" id="theme-icon-desktop"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+      </div>
+    </aside>
+    
+    <!-- Main Scrollable Content -->
+    <main class="main-content">
+      
+      <!-- ==================== TAB: DASHBOARD ==================== -->
+      <section id="tab-dashboard" class="app-section active">
+        <div class="section-header">
+          <div>
+            <h1 class="section-title">Bonjour, Apprenant !</h1>
+            <p class="section-desc">Bienvenue sur votre espace d'apprentissage interactif du français.</p>
+          </div>
+        </div>
+        
+        <div class="welcome-card">
+          <h2>100 Expressions Indispensables</h2>
+          <p>Prêt à enrichir votre français parlé au quotidien ? Explorez le catalogue structuré autour des 10 verbes les plus utilisés, testez-vous avec des flashcards 3D et validez vos acquis avec des quiz adaptatifs en temps réel.</p>
+          <button class="btn btn-primary" id="btn-start-learning">Commencer à réviser</button>
+        </div>
+        
+        <div class="stats-card-row">
+          <div class="stat-mini-card">
+            <div class="stat-icon-wrapper">
+              <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            </div>
+            <div class="stat-details">
+              <h3 id="stat-total-learned">0 / 100</h3>
+              <p>Expressions apprises</p>
+            </div>
+          </div>
+          <div class="stat-mini-card">
+            <div class="stat-icon-wrapper" style="background-color: hsl(var(--color-warning) / 0.15); color: hsl(var(--color-warning));">
+              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </div>
+            <div class="stat-details">
+              <h3 id="stat-total-favorites">0</h3>
+              <p>Favoris enregistrés</p>
+            </div>
+          </div>
+          <div class="stat-mini-card">
+            <div class="stat-icon-wrapper" style="background-color: hsl(var(--color-success) / 0.15); color: hsl(var(--color-success));">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+            </div>
+            <div class="stat-details">
+              <h3 id="stat-quiz-played">0</h3>
+              <p>Quiz complétés</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="dashboard-grid">
+          <div class="stats-card">
+            <h3>Dernière activité</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;" id="dashboard-activity-text">
+              Vous n'avez pas encore commencé votre parcours. Accédez aux Flashcards ou au Catalogue pour débuter !
+            </p>
+          </div>
+          <div class="stats-card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+            <h3 style="align-self: flex-start;">Progression globale</h3>
+            <div class="progress-ring-container">
+              <div class="progress-ring">
+                <svg>
+                  <defs>
+                    <linearGradient id="ring-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#6366f1" />
+                      <stop offset="100%" stop-color="#14b8a6" />
+                    </linearGradient>
+                  </defs>
+                  <circle class="progress-ring-circle-bg" cx="80" cy="80" r="70" />
+                  <circle class="progress-ring-circle" id="dashboard-ring-circle" cx="80" cy="80" r="70" />
+                </svg>
+                <div class="progress-ring-percentage" id="dashboard-progress-percentage">0%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- ==================== TAB: CATALOG ==================== -->
+      <section id="tab-catalog" class="app-section">
+        <div class="section-header">
+          <div>
+            <h1 class="section-title">Catalogue des expressions</h1>
+            <p class="section-desc">Recherchez et filtrez les 100 expressions indispensables de la base.</p>
+          </div>
+        </div>
+        
+        <div class="filters-bar">
+          <div class="search-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="catalog-search" class="search-input" placeholder="Rechercher une expression, un mot clé, une traduction...">
+          </div>
+          
+          <div class="filter-groups-row">
+            <div class="filter-group">
+              <span class="filter-group-label">Verbe de rattachement</span>
+              <div class="filter-btn-group" id="filter-verb-group">
+                <button class="filter-btn active" data-verb="all">Tous</button>
+                <button class="filter-btn" data-verb="Être">Être</button>
+                <button class="filter-btn" data-verb="Avoir">Avoir</button>
+                <button class="filter-btn" data-verb="Faire">Faire</button>
+                <button class="filter-btn" data-verb="Dire">Dire</button>
+                <button class="filter-btn" data-verb="Pouvoir">Pouvoir</button>
+                <button class="filter-btn" data-verb="Aller">Aller</button>
+                <button class="filter-btn" data-verb="Voir">Voir</button>
+                <button class="filter-btn" data-verb="Savoir">Savoir</button>
+                <button class="filter-btn" data-verb="Vouloir">Vouloir</button>
+                <button class="filter-btn" data-verb="Venir">Venir</button>
+              </div>
+            </div>
+            
+            <div class="filter-group">
+              <span class="filter-group-label">Difficulté</span>
+              <div class="filter-btn-group" id="filter-difficulty-group">
+                <button class="filter-btn active" data-difficulty="all">Toutes</button>
+                <button class="filter-btn" data-difficulty="Débutant">Débutant</button>
+                <button class="filter-btn" data-difficulty="Intermédiaire">Intermédiaire</button>
+                <button class="filter-btn" data-difficulty="Avancé">Avancé</button>
+              </div>
+            </div>
+            
+            <div class="filter-group">
+              <span class="filter-group-label">Favoris</span>
+              <div class="filter-btn-group" id="filter-favorite-group">
+                <button class="filter-btn active" data-favorite="all">Tous les mots</button>
+                <button class="filter-btn" data-favorite="only">⭐ Mes Favoris</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="expressions-grid" id="catalog-grid-container">
+          <!-- Cards injected dynamically via JS -->
+        </div>
+      </section>
+      
+      <!-- ==================== TAB: FLASHCARDS ==================== -->
+      <section id="tab-flashcards" class="app-section">
+        <div class="section-header">
+          <div>
+            <h1 class="section-title">Cartes mémoire (Flashcards)</h1>
+            <p class="section-desc">Entraînez-vous à mémoriser les expressions avec l'effet flip 3D.</p>
+          </div>
+        </div>
+        
+        <div class="flashcards-layout">
+          <!-- 3D Flashcard Container -->
+          <div class="flashcard-scene" id="flashcard-click-area">
+            <div class="flashcard" id="flashcard-el">
+              
+              <!-- Front of Flashcard -->
+              <div class="flashcard-face flashcard-front">
+                <div class="card-badge-header">
+                  <span class="badge badge-easy" id="fc-difficulty-badge">Débutant</span>
+                  <button class="flashcard-action-btn" id="fc-fav-btn" title="Ajouter aux favoris">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                  </button>
+                </div>
+                <div class="flashcard-body-content">
+                  <h3 class="flashcard-title" id="fc-front-text">Être mal à l'aise</h3>
+                  <p style="color: hsl(var(--color-primary)); font-weight: 700;" id="fc-front-verb-badge">Verbe : Être</p>
+                </div>
+                <div class="flashcard-footer-tip">Cliquez pour retourner</div>
+              </div>
+              
+              <!-- Back of Flashcard -->
+              <div class="flashcard-face flashcard-back">
+                <div class="card-badge-header">
+                  <span class="badge badge-register" id="fc-register-badge">Standard</span>
+                  <button class="audio-btn" id="fc-audio-speak-btn" title="Écouter la prononciation">
+                    <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                  </button>
+                </div>
+                <div class="flashcard-body-content">
+                  <h4 class="flashcard-translation-back" id="fc-back-translation">To feel uncomfortable</h4>
+                  <p class="flashcard-meaning-back" id="fc-back-definition">Être embarrassé, gêné, se sentir mal face à quelque chose ou face à quelqu'un.</p>
+                  <p style="font-size: 0.85rem; font-style: italic; max-width: 440px; margin: 0.5rem auto 0 auto; color: var(--text-main);" id="fc-back-example">"Je n'aime pas parler en public. Je suis vraiment mal à l'aise..."</p>
+                </div>
+                <div class="flashcard-footer-tip">Cliquez pour retourner</div>
+              </div>
+              
+            </div>
+          </div>
+          
+          <!-- Controls -->
+          <div class="flashcards-controls">
+            <button class="round-control-btn shuffle-btn" id="fc-btn-shuffle" title="Mélanger (Aléatoire)">
+              <svg viewBox="0 0 24 24"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
+            </button>
+            
+            <button class="round-control-btn" id="fc-btn-prev" title="Précédent">
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            
+            <span class="progress-text-display" id="fc-progress-display">1 / 100</span>
+            
+            <button class="round-control-btn" id="fc-btn-next" title="Suivant">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+            
+            <button class="btn-learn-status" id="fc-learned-toggle">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span id="fc-learned-btn-text">Marquer comme appris</span>
+            </button>
+          </div>
+        </div>
+      </section>
+      
+      <!-- ==================== TAB: QUIZ ==================== -->
+      <section id="tab-quiz" class="app-section">
+        <div class="section-header">
+          <div>
+            <h1 class="section-title">Quiz Interactifs</h1>
+            <p class="section-desc">Testez vos connaissances en expressions françaises avec plusieurs types d'exercices.</p>
+          </div>
+        </div>
+        
+        <!-- Quiz configuration Panel -->
+        <div class="quiz-setup-panel" id="quiz-setup-container">
+          <h3>Configurer votre session de quiz</h3>
+          <div class="quiz-form-group">
+            <label for="quiz-select-verb">Filtrer par Verbe</label>
+            <select id="quiz-select-verb" class="quiz-select-control">
+              <option value="all">Tous les verbes (100 expressions)</option>
+              <option value="Être">Être (10 expressions)</option>
+              <option value="Avoir">Avoir (10 expressions)</option>
+              <option value="Faire">Faire (10 expressions)</option>
+              <option value="Dire">Dire (10 expressions)</option>
+              <option value="Pouvoir">Pouvoir (10 expressions)</option>
+              <option value="Aller">Aller (10 expressions)</option>
+              <option value="Voir">Voir (10 expressions)</option>
+              <option value="Savoir">Savoir (10 expressions)</option>
+              <option value="Vouloir">Vouloir (10 expressions)</option>
+              <option value="Venir">Venir (10 expressions)</option>
+            </select>
+          </div>
+          
+          <div class="quiz-form-group">
+            <label for="quiz-select-difficulty">Niveau de difficulté</label>
+            <select id="quiz-select-difficulty" class="quiz-select-control">
+              <option value="all">Tous les niveaux</option>
+              <option value="Débutant">Débutant</option>
+              <option value="Intermédiaire">Intermédiaire</option>
+              <option value="Avancé">Avancé</option>
+            </select>
+          </div>
+          
+          <div class="quiz-form-group">
+            <label for="quiz-select-limit">Nombre de questions</label>
+            <select id="quiz-select-limit" class="quiz-select-control">
+              <option value="10">10 questions</option>
+              <option value="20">20 questions</option>
+              <option value="50">50 questions</option>
+            </select>
+          </div>
+          
+          <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" id="quiz-btn-start">Lancer le quiz</button>
+        </div>
+        
+        <!-- Quiz Arena (Interactive play zone) -->
+        <div class="quiz-arena" id="quiz-play-container" style="display: none;">
+          <div class="quiz-progress-header">
+            <div class="quiz-bar-container">
+              <div class="quiz-progress-bar" id="quiz-progress-fill"></div>
+            </div>
+            <span class="quiz-score-badge" id="quiz-progress-text">Question 1 / 10</span>
+          </div>
+          
+          <div class="quiz-card">
+            <span class="question-type-indicator" id="quiz-type-title">Question à choix multiples</span>
+            <div class="question-prompt" id="quiz-question-prompt">
+              Trouvez la bonne définition de l'expression suivante :
+            </div>
+            
+            <!-- Dynamic options injected here -->
+            <div class="quiz-options-container" id="quiz-options-wrapper">
+              <!-- Choices buttons -->
+            </div>
+            
+            <div class="quiz-feedback-box" id="quiz-feedback-box">
+              <strong id="quiz-feedback-title">Correct !</strong>
+              <p id="quiz-feedback-desc"></p>
+            </div>
+          </div>
+          
+          <div class="quiz-action-footer">
+            <button class="btn btn-primary" id="quiz-btn-action" disabled>Valider</button>
+          </div>
+        </div>
+        
+        <!-- Quiz Results Panel -->
+        <div class="quiz-results-card" id="quiz-results-container" style="display: none;">
+          <div class="results-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+          </div>
+          <h2 class="results-title" id="quiz-results-title">Félicitations !</h2>
+          <p class="results-score-text">
+            Vous avez terminé la session avec un score de :
+            <span class="score-highlight" id="quiz-results-score">8 / 10</span>
+          </p>
+          <div style="display: flex; gap: 1rem; justify-content: center;">
+            <button class="btn btn-secondary" id="quiz-btn-retry">Recommencer</button>
+            <button class="btn btn-primary" id="quiz-btn-back-setup">Nouveau Quiz</button>
+          </div>
+        </div>
+      </section>
+      
+      <!-- ==================== TAB: STATISTICS ==================== -->
+      <section id="tab-stats" class="app-section">
+        <div class="section-header">
+          <div>
+            <h1 class="section-title">Tableau de bord</h1>
+            <p class="section-desc">Analysez votre progression et vos scores historiques.</p>
+          </div>
+        </div>
+        
+        <div class="stats-dashboard">
+          <div class="stats-aside-panel">
+            <div class="stats-card" style="text-align: center;">
+              <h3>Mémorisation</h3>
+              <div class="progress-ring-container">
+                <div class="progress-ring">
+                  <svg>
+                    <circle class="progress-ring-circle-bg" cx="80" cy="80" r="70" />
+                    <circle class="progress-ring-circle" id="stats-ring-circle" cx="80" cy="80" r="70" />
+                  </svg>
+                  <div class="progress-ring-percentage" id="stats-progress-percentage">0%</div>
+                </div>
+              </div>
+              <p class="progress-legend-text" id="stats-progress-text-legend">0 expression apprise sur 100.</p>
+            </div>
+            
+            <div class="stats-card">
+              <h3>Historique des Quiz</h3>
+              <div class="history-list" id="stats-quiz-history-list">
+                <!-- Dynamically populated quiz records -->
+                <p style="color: var(--text-muted); font-size: 0.9rem;" id="stats-no-history">Aucun quiz enregistré. Lancez-vous !</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="stats-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <h3>Répartition de votre progression</h3>
+            <div class="chart-container-wrapper">
+              <canvas id="progressChart"></canvas>
+            </div>
+            <div style="margin-top: 1rem; display: flex; gap: 1.5rem; justify-content: center;" id="stats-quick-stats">
+              <div style="text-align: center;">
+                <span style="font-size: 1.5rem; font-weight: 800; font-family: var(--font-title);" id="stats-avg-score">-</span>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Score moyen</p>
+              </div>
+              <div style="text-align: center;">
+                <span style="font-size: 1.5rem; font-weight: 800; font-family: var(--font-title);" id="stats-fav-count">0</span>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Favoris</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+    </main>
+  </div>
+  
+  <!-- PWA Install Banner Overlay -->
+  <div class="pwa-banner" id="pwa-install-banner">
+    <div class="pwa-banner-content">
+      <h4>Français Express</h4>
+      <p>Installer l'application pour un accès hors-ligne rapide.</p>
+    </div>
+    <div class="pwa-btn-group">
+      <button class="btn-pwa-close" id="pwa-btn-close">Plus tard</button>
+      <button class="btn-pwa-install" id="pwa-btn-install">Installer</button>
+    </div>
+  </div>
+  
+  <!-- Mobile Navigation (Bottom bar) -->
+  <nav class="mobile-nav">
+    <a class="mobile-nav-link active" data-tab="dashboard" id="mob-nav-db">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>Accueil</span>
+    </a>
+    <a class="mobile-nav-link" data-tab="catalog" id="mob-nav-catalog">
+      <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      <span>Catalogue</span>
+    </a>
+    <a class="mobile-nav-link" data-tab="flashcards" id="mob-nav-flashcards">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5" rx="1"></rect></svg>
+      <span>Cartes</span>
+    </a>
+    <a class="mobile-nav-link" data-tab="quiz" id="mob-nav-quiz">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+      <span>Quiz</span>
+    </a>
+    <a class="mobile-nav-link" data-tab="stats" id="mob-nav-stats">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+      <span>Stats</span>
+    </a>
+  </nav>
+
+  <!-- External Library: Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- JS Modules -->
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
