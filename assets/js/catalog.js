@@ -122,7 +122,8 @@ export function renderCatalog() {
                           item.expression.toLowerCase().includes(searchQuery) ||
                           item.translation.toLowerCase().includes(searchQuery) ||
                           item.definition.toLowerCase().includes(searchQuery) ||
-                          item.example.toLowerCase().includes(searchQuery);
+                          item.example.toLowerCase().includes(searchQuery) ||
+                          item.verb.toLowerCase().includes(searchQuery);
                           
     // Verb match
     const matchesVerb = activeVerbFilter === 'all' || item.verb === activeVerbFilter;

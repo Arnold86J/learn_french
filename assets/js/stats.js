@@ -9,6 +9,7 @@ export function initStats() {
 }
 
 export function updateStatsPage() {
+  const totalExpressions = state.expressions.length;
   const totalLearned = state.learned.length;
   const totalFavorites = state.favorites.length;
   const history = state.quizHistory;
@@ -18,9 +19,9 @@ export function updateStatsPage() {
   const pctText = document.getElementById('stats-progress-percentage');
   const legendText = document.getElementById('stats-progress-text-legend');
   
-  const percent = totalLearned; // total is 100
+  const percent = totalExpressions > 0 ? Math.round((totalLearned / totalExpressions) * 100) : 0;
   pctText.textContent = `${percent}%`;
-  legendText.textContent = `${totalLearned} expression${totalLearned > 1 ? 's' : ''} apprise${totalLearned > 1 ? 's' : ''} sur 100.`;
+  legendText.textContent = `${totalLearned} expression${totalLearned > 1 ? 's' : ''} apprise${totalLearned > 1 ? 's' : ''} sur ${totalExpressions}.`;
   
   // Circle circumference is 2 * pi * r = ~439.8
   const strokeDashoffset = 439.8 - (percent / 100) * 439.8;
@@ -83,10 +84,17 @@ function renderChart() {
   const ctx = document.getElementById('progressChart').getContext('2d');
   
   // Compute learned counts by verb
-  const verbs = ['Être', 'Avoir', 'Faire', 'Dire', 'Pouvoir', 'Aller', 'Voir', 'Savoir', 'Vouloir', 'Venir'];
+  const verbs = [...new Set(state.expressions.map(item => item.verb))];
   const learnedCounts = verbs.map(verb => {
     return state.expressions.filter(item => item.verb === verb && state.learned.includes(item.id)).length;
   });
+
+  const maxPerVerb = verbs.reduce((acc, verb) => {
+    acc[verb] = state.expressions.filter(item => item.verb === verb).length;
+    return acc;
+  }, {});
+
+  const absoluteMax = Math.max(...Object.values(maxPerVerb), 1);
   
   // Destroy old chart instance to prevent canvas rendering conflicts
   if (progressChart) {
@@ -102,7 +110,7 @@ function renderChart() {
     data: {
       labels: verbs,
       datasets: [{
-        label: 'Expressions apprises (Max 10)',
+        label: 'Expressions apprises',
         data: learnedCounts,
         backgroundColor: 'rgba(99, 102, 241, 0.65)',
         borderColor: 'rgba(99, 102, 241, 1)',
@@ -118,9 +126,9 @@ function renderChart() {
       scales: {
         y: {
           beginAtZero: true,
-          max: 10,
+          max: absoluteMax,
           ticks: {
-            stepSize: 2,
+            stepSize: Math.ceil(absoluteMax / 5),
             color: textColor
           },
           grid: {

@@ -157,18 +157,23 @@ function generateQuestion(item, database, indexNum) {
     // If we cannot find it, we will replace the key part, or fallback to hiding a specific phrase.
     let targetWord = "";
     
+    // Function to escape regex special characters
+    const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
     // We clean the expression to search
-    const cleanExpr = item.expression.replace(/^(Être|Avoir|Faire|Dire|Pouvoir|Aller|Voir|Savoir|Vouloir|Venir)\s+/, '').trim();
+    const cleanExpr = item.expression.replace(/^(Être|Avoir|Faire|Dire|Pouvoir|Aller|Voir|Savoir|Vouloir|Venir)\s+(de\s+)?/, '').replace(/\s+\+\s+infinitif$/, '').trim();
     
-    const regex = new RegExp(cleanExpr, 'gi');
-    if (regex.test(exampleSentence)) {
+    const escapedExpr = escapeRegExp(cleanExpr);
+    const regex = new RegExp(escapedExpr, 'gi');
+    if (cleanExpr && regex.test(exampleSentence)) {
       blankedSentence = exampleSentence.replace(regex, '___________');
       targetWord = exampleSentence.match(regex)[0];
     } else {
       // Fallback: replace a portion of the expression
       const words = item.expression.split(' ');
-      const keyPart = words.slice(1).join(' '); // Skip first word (verb)
-      const regexKey = new RegExp(keyPart, 'gi');
+      const keyPart = words.slice(1).join(' ').replace(/\s+\+\s+infinitif$/, '').trim(); // Skip first word (verb)
+      const escapedKey = escapeRegExp(keyPart);
+      const regexKey = new RegExp(escapedKey, 'gi');
       if (keyPart && regexKey.test(exampleSentence)) {
         blankedSentence = exampleSentence.replace(regexKey, '___________');
         targetWord = exampleSentence.match(regexKey)[0];
